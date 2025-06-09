@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Regression mit FFNN – TensorFlow.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.7/lib/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.7/lib/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+
+  </head>
+  <body>
+    <main>
+       <h1>Regression mit FFNN – TensorFlow.js</h1>
+
+    <section id="r1">
+      <h2>R1: Datensätze</h2>
+      <div class="grid">
+        <canvas id="dataset-clean"></canvas>
+        <canvas id="dataset-noisy"></canvas>
+      </div>
+    </section>
+
+    <section id="r2">
+      <h2>R2: Modell ohne Rauschen</h2>
+      <div class="grid">
+        <canvas id="pred-clean-train"></canvas>
+        <canvas id="pred-clean-test"></canvas>
+      </div>
+      <p>Trainings-Loss: <span id="loss-clean-train"></span> &nbsp;&nbsp;
+         Test-Loss: <span id="loss-clean-test"></span></p>
+    </section>
+
+    <section id="r3">
+      <h2>R3: Best-Fit-Modell mit Rauschen</h2>
+      <div class="grid">
+        <canvas id="pred-best-train"></canvas>
+        <canvas id="pred-best-test"></canvas>
+      </div>
+      <p>Trainings-Loss: <span id="loss-best-train"></span> &nbsp;&nbsp;
+         Test-Loss: <span id="loss-best-test"></span></p>
+    </section>
+
+    <section id="r4">
+      <h2>R4: Overfit-Modell mit Rauschen</h2>
+      <div class="grid">
+        <canvas id="pred-overfit-train"></canvas>
+        <canvas id="pred-overfit-test"></canvas>
+      </div>
+      <p>Trainings-Loss: <span id="loss-overfit-train"></span> &nbsp;&nbsp;
+         Test-Loss: <span id="loss-overfit-test"></span></p>
+    </section>
+
+    <section id="discussion">
+      <h2>Diskussion</h2>
+      <p id="discussion-text">
+  Die Ergebnisse zeigen deutlich den Einfluss von Rauschen und Trainingsdauer. Das Modell ohne Rauschen approximiert die Funktion sehr gut mit nahezu identischen Loss-Werten auf Trainings- und Testdaten – ein Zeichen für gute Generalisierung. Das Best-Fit-Modell mit Rauschen weist leicht erhöhte Fehler auf, bleibt aber stabil. Beim Overfit-Modell hingegen sinkt der Trainingsfehler stark, während der Testfehler signifikant steigt – ein klassischer Overfitting-Fall. Dies unterstreicht die Notwendigkeit kontrollierter Trainingszeit oder regulierender Maßnahmen wie Dropout.
+</p>
+    </section>
+
+    <section id="documentation">
+      <h2>Dokumentation</h2>
+      <h3>1) Technisch</h3>
+      <p id="technical-doc">
+  Verwendete Frameworks: <strong>TensorFlow.js</strong> (für Modellierung, Training und Inferenz), <strong>Chart.js</strong> (für Visualisierungen). Die Anwendung nutzt ein vollständig clientseitiges Setup. Modelle wurden dynamisch erzeugt, trainiert und evaluiert. Besonderheit: bewusst keine Normalisierung des Outputs, da die Zielwerte reell und weit gestreut sind – die Output-Aktivierungsfunktion ist linear.
+</p>
+      <h3>2) Fachlich</h3>
+      <p id="conceptual-doc">
+  Die Zielfunktion wurde synthetisch erzeugt und in Trainings- sowie Testdaten mit und ohne künstliches Rauschen überführt. Die Modelle basieren auf einem Feedforward-Netz mit zwei Hidden Layers à 100 Neuronen (ReLU). Drei Trainingsläufe wurden durchgeführt: ohne Rauschen (Baseline), mit Rauschen und begrenzten Epochen (Best-Fit), sowie mit Rauschen und vielen Epochen (Overfit). Ergebnisdarstellung und Loss-Werte erfolgten datenbezogen und ohne Nutzung eines Validationsets. Quelle: Aufgabenstellung (Lehrveranstaltung).
+
+</p>
+    </section>
+    </main>
+    <script src="sketch.js"></script>
+  </body>
+</html>
